@@ -1,7 +1,7 @@
 
-##############
+#################
 # aws providers
-##############
+#################
 
 terraform {
   required_providers {
@@ -12,23 +12,24 @@ terraform {
   }
  }
 
-############
-# aws region
-############
+##################
+# aws region name
+##################
 
 provider "aws" {
         region = "region_name"
         shared_credentials_file = "~/.aws/credentials"
 }
 
-#########
+#############
 # vpc aws
-#########
+#############
+
 resource "aws_vpc" "main" {
   cidr_block = "10.8.0.0/16"
 }
 
-##################
+###################
 # two public subnet 
 ###################
 
@@ -53,9 +54,9 @@ resource "aws_subnet" "public-02" {
   }
 }
 
-###############
-# instance nginx
-###############
+######################
+# instance web-server
+######################
 
 resource "aws_instance" "my-instance" {
         ami = "ami-092cce4a19b438926"
@@ -107,9 +108,9 @@ resource "aws_route_table" "default_rt" {
   }
 }
 
-##############
+##################
 # internet gateway
-##############
+##################
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -240,9 +241,9 @@ resource "aws_main_route_table_association" "a" {
   route_table_id = aws_route_table.default_rt.id
 }
 
-######################
+#######################
 #  output "instance_ip"
-######################
+#######################
 
 output "instance_ip" {
   value = aws_instance.test_instance.*.public_ip
