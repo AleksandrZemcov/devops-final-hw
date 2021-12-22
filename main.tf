@@ -88,7 +88,7 @@ resource "aws_route_table" "default_rt" {
   route = [
     {
       cidr_block = "0.0.0.0/0"
-      gateway_id = aws_internet_gateway.myigw.id
+      gateway_id = aws_internet_gateway.igw.id
       carrier_gateway_id         = ""
       destination_prefix_list_id = ""
       egress_only_gateway_id     = ""
