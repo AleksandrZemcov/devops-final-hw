@@ -310,8 +310,6 @@ resource "aws_instance" "test_instance" {
 
 
 
-
-
 output "instance_ip" {
   value = aws_instance.test_instance.*.public_ip
 
