@@ -91,7 +91,7 @@ resource "aws_lb_listener" "front_end" {
 
 resource "aws_lb_target_group" "myec2" {
   name        = "testnginx"
-  port        = 80
+  port        = "80"
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = aws_vpc.main.id
@@ -284,18 +284,11 @@ resource "aws_security_group" "allow_ssh" {
 
 
 
-#resource "aws_key_pair" "ec2" {
-#  key_name   = "ec2"
-#  public_key = file("~/.ssh/ec2.pub")
-# }
-
-
-
 resource "aws_instance" "test_instance" {
   ami           = "ami-092cce4a19b438926"
   instance_type = "t3.micro"
   key_name      = "ubuntu"
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_web.id]
   subnet_id     = aws_subnet.new-public-01.id
   user_data     = "${file("install_nginx.sh")}"
 
@@ -305,12 +298,3 @@ resource "aws_instance" "test_instance" {
  }
 }
 
-
-
-
-
-
-output "instance_ip" {
-  value = aws_instance.test_instance.*.public_ip
-
-}
