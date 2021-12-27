@@ -317,10 +317,16 @@ resource "aws_instance" "test_instance" {
  }
 }
 
+############################
+# output "elb_dns_name"
+############################
 
 
 output "elb_dns_name" {
   description = "The DNS name of the ELB"
-  value       = aws_lb.testnginxlb.dns_name
+  value       = aws_lb.mylb.*.dns_name
 }
+
+
+
   
