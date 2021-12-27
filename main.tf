@@ -102,7 +102,7 @@ resource "aws_lb_target_group" "myec2" {
 resource "aws_lb_target_group_attachment" "testnginx" {
   target_group_arn = aws_lb_target_group.myec2.arn
   target_id        = aws_instance.test_instance.id
-  port             = 8080
+  port             = 80
 }
 
 
@@ -156,8 +156,8 @@ resource "aws_security_group" "allow_elb" {
   ingress = [
     {
       description      = "From ELB to EC2"
-      from_port        = 8080
-      to_port          = 8080
+      from_port        = 80
+      to_port          = 80
       protocol         = "tcp"
       cidr_blocks      = []
       ipv6_cidr_blocks = []
