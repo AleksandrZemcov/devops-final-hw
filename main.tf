@@ -36,7 +36,7 @@ resource "aws_vpc" "main" {
 
 
 ###################
-# two public subnet 
+# public subnet 
 ###################
 
 
@@ -63,8 +63,9 @@ resource "aws_subnet" "new-public-02" {
   }
 }
 
-
-
+##################
+# aws_elb
+##################
 
 resource "aws_lb" "mylb" {
   name               = "testnginxlb"
@@ -77,6 +78,9 @@ resource "aws_lb" "mylb" {
 }
 
 
+##################
+# aws_elb_listener
+##################
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.mylb.arn
@@ -88,6 +92,9 @@ resource "aws_lb_listener" "front_end" {
   }
 }
 
+######################
+# aws_elb_target_group
+######################
 
 resource "aws_lb_target_group" "myec2" {
   name        = "testnginx"
@@ -97,7 +104,9 @@ resource "aws_lb_target_group" "myec2" {
   vpc_id      = aws_vpc.main.id
 }
 
-
+###################
+# target_attachment
+###################
 
 resource "aws_lb_target_group_attachment" "testnginx" {
   target_group_arn = aws_lb_target_group.myec2.arn
@@ -105,7 +114,9 @@ resource "aws_lb_target_group_attachment" "testnginx" {
   port             = 80
 }
 
-
+####################
+# aws_security_group
+####################
 
 
 resource "aws_security_group" "allow_web" {
@@ -186,7 +197,9 @@ resource "aws_security_group" "allow_elb" {
   }
 }
 
-
+##################
+# internet_gateway
+##################
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -197,7 +210,9 @@ resource "aws_internet_gateway" "igw" {
 }
  
 
-
+##################
+# route_table
+##################
 
 
 resource "aws_route_table" "default_rt" {
@@ -228,7 +243,9 @@ resource "aws_route_table" "default_rt" {
 
 
 
-
+##################
+# rt_association
+##################
 
 
 resource "aws_main_route_table_association" "a" {
@@ -237,8 +254,9 @@ resource "aws_main_route_table_association" "a" {
 }
 
 
-
-
+##################
+# sg_allow_ssh
+##################
 
 
 resource "aws_security_group" "allow_ssh" {
@@ -280,8 +298,9 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
-
-
+############################
+# aws_instance_install_nginx
+############################
 
 
 resource "aws_instance" "test_instance" {
