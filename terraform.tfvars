@@ -1,1 +1,1 @@
-instance_name = "Do1821-zemcov"
+instance_name = "DO1821-zemcov"
