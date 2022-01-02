@@ -1,6 +1,6 @@
 
 #################
-# aws providers
+# aws_providers
 #################
 
 terraform {
@@ -14,7 +14,7 @@ terraform {
 
 
 ##################
-# aws region name
+# aws_region_name
 ##################
 
 provider "aws" {
@@ -25,7 +25,7 @@ provider "aws" {
 
 
 #############
-# vpc aws
+# vpc_aws
 #############
 
 resource "aws_vpc" "main" {
@@ -37,7 +37,7 @@ resource "aws_vpc" "main" {
 
 
 ###################
-# public subnet 
+# two_public_subnet 
 ###################
 
 
