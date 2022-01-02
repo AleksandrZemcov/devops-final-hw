@@ -299,6 +299,19 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+
+############################
+# aws_instance_name
+############################
+
+
+variable "instance_name" {
+ type = string
+ description = "Instance name"
+}
+
+
+
 ############################
 # aws_instance_install_nginx
 ############################
@@ -314,7 +327,7 @@ resource "aws_instance" "test_instance" {
 
 
   tags = {
-    Name = "nginx"
+    Name = var.instance_name
  }
 }
 
