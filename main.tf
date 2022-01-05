@@ -320,7 +320,6 @@ variable "instance_name" {
 resource "aws_instance" "test_instance" {
   ami           = "ami-092cce4a19b438926"
   instance_type = "t3.micro"
-  key_name      = < "aws_key_pair" >
   vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_web.id]
   subnet_id     = aws_subnet.new-public-01.id
   user_data     = "${file("install_nginx.sh")}"
